@@ -1,0 +1,23 @@
+{
+  "name": "photic-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts"
+  },
+  "author": "Syler",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^13.7.7",
+    "@types/node-fetch": "^2.5.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
+  }
+}
