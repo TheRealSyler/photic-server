@@ -4,8 +4,11 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts"
+    "init": "yarn && yarn global add typescript ts-node",
+    "push": "heroku container:push web -a photic-server",
+    "release": "heroku container:release web -a photic-server",
+    "deploy": "yarn push && yarn release",
+    "start": "nodemon src/index.ts"
   },
   "author": "Syler",
   "license": "MIT",

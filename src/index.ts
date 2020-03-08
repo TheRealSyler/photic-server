@@ -8,10 +8,11 @@ import Conf from 'conf';
 import cors from 'cors';
 
 export class Server {
-  port = process.env.PORT || 4000;
+  port = process.env.PORT;
   app = express();
   router = Router();
   db = new Conf<Data>();
+  lastDBUpdate = Date.now();
   constructor() {
     this.init();
   }
@@ -20,26 +21,22 @@ export class Server {
     // this.db.clear();
     this.app.use(
       cors({
-        origin: process.env.MODE === 'development' ? '*' : process.env.WEBSITE_ORIGIN
+        origin: process.env.WEBSITE_ORIGIN
       })
     );
 
     if (!this.db.has('repositories')) {
       logAction('DB INIT', 'Repositories');
       this.db.set('repositories', await fetchRepositories());
+      logAction('DB INIT', 'Repositories Finished');
     }
-
-    setInterval(async () => {
-      logAction('DB Update', 'Repositories');
-      this.db.set('repositories', await fetchRepositories());
-    }, 1000 * 60 * 60 * 24);
 
     setUpRouter.call(this);
 
     this.app.use(this.router);
 
     this.app.listen(this.port, () => {
-      logAction('LISTENING', this.port.toString());
+      logAction('LISTENING', String(this.port));
     });
   }
 }
